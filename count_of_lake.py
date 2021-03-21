@@ -47,11 +47,17 @@ class Graph:
         return count, output
 
 
-graph = [[1, 1, 0, 0, 0],
-         [0, 1, 0, 0, 1],
-         [1, 0, 0, 1, 1],
-         [0, 0, 1, 1, 0],
-         [1, 0, 1, 0, 1]]
+graph = [[1, 0, 1, 0, 0, 0, 1],
+         [0, 0, 1, 0, 1, 0, 1],
+         [1, 1, 1, 1, 0, 0, 1],
+         [1, 0, 0, 1, 0, 1, 0],
+         [1, 0, 1, 1, 0, 0, 0],
+         [0, 1, 0, 1, 0, 0, 1],
+         [0, 0, 0, 1, 0, 1, 1],
+         [0, 0, 0, 1, 0, 0, 1],
+         [1, 0, 1, 1, 1, 0, 0],
+         [1, 1, 1, 1, 0, 0, 0]]
+         
 row = len(graph)
 col = len(graph[0])
 
@@ -81,4 +87,6 @@ for i in range(row):
 ax.add_table(tb)
 ax.set_aspect('equal')
 plt.axis("off")
+
+plt.savefig('output.jpg')
 plt.show()
