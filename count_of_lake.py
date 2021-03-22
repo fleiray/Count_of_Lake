@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.table import Table
 
+
 class Graph:
 
     def __init__(self, row, col, g):
@@ -10,7 +11,7 @@ class Graph:
         self.graph = g
 
     # A function to check if a given cell (row, col) can be included in DFS
-    def isSafe(self, i, j, visited):
+    def isVisited(self, i, j, visited):
         # row number is in range, column number is in range and value is 1 and not yet visited
         safe = False
         if (i >= 0 and i < self.ROW and j >= 0 and j < self.COL and not visited[i][j] and self.graph[i][j] == 0):
@@ -27,8 +28,8 @@ class Graph:
         output[i][j] = count+1
         # Recur for all connected neighbours
         for k in range(8):
-            if self.isSafe(i + rowNbr[k], j + colNbr[k], visited):
-                self.DFS(i + rowNbr[k], j + colNbr[k], visited,output, count)
+            if self.isVisited(i + rowNbr[k], j + colNbr[k], visited):
+                self.DFS(i + rowNbr[k], j + colNbr[k], visited, output, count)
     # The main function that returns count of islands in a given boolean 2D matrix
 
     def countIslands(self):
@@ -47,19 +48,44 @@ class Graph:
         return count, output
 
 
-graph = [[1, 0, 1, 0, 0, 0, 1],
-         [0, 0, 1, 0, 1, 0, 1],
-         [1, 1, 1, 1, 0, 0, 1],
-         [1, 0, 0, 1, 0, 1, 0],
-         [1, 0, 1, 1, 0, 0, 0],
-         [0, 1, 0, 1, 0, 0, 1],
-         [0, 0, 0, 1, 0, 1, 1],
-         [0, 0, 0, 1, 0, 0, 1],
-         [1, 0, 1, 1, 1, 0, 0],
-         [1, 1, 1, 1, 0, 0, 0]]
-         
-row = len(graph)
-col = len(graph[0])
+# graph = [[1, 0, 1, 0, 0, 0, 1],
+#          [0, 0, 1, 0, 1, 0, 1],
+#          [1, 1, 1, 1, 0, 0, 1],
+#          [1, 0, 0, 1, 0, 1, 0],
+#          [1, 0, 1, 1, 0, 0, 0],
+#          [0, 1, 0, 1, 0, 0, 1],
+#          [0, 0, 0, 1, 0, 1, 1],
+#          [0, 0, 0, 1, 0, 0, 1],
+#          [1, 0, 1, 1, 1, 0, 0],
+#          [1, 1, 1, 1, 0, 0, 0]]
+R = int(input("Enter the number of rows:"))
+C = int(input("Enter the number of columns:"))
+
+# Initialize matrix
+graph = []
+print("Enter the entries rowwise:")
+
+# For user input
+for i in range(R):          # A for loop for row entries
+    print("You are entering Row: "+str(i+1))
+    a = []
+    for j in range(C):      # A for loop for column entries
+        cell = int(input())
+        while(cell != 1 and cell != 0):
+            cell = int(input("Invalid Input, Re-enter please"))
+        a.append(cell)
+    graph.append(a)
+
+# For printing the matrix
+for i in range(R):
+    for j in range(C):
+        print(graph[i][j], end=" ")
+    print()
+
+# row = len(graph)
+# col = len(graph[0])
+row = R
+col = C
 
 g = Graph(row, col, graph)
 
@@ -70,20 +96,20 @@ print(output_as_array)
 print("Number of Lake is:")
 print(count)
 
-fig,ax=plt.subplots(figsize=(6,6))
+fig, ax = plt.subplots(figsize=(6, 6))
 tb = Table(ax)
-nrows, ncols = len(output_as_array),len(output_as_array)
-width, height = 1.0 / ncols, 1.0 / nrows   
-for (i,j),val in np.ndenumerate(output_as_array):
+nrows, ncols = len(output_as_array), len(output_as_array)
+width, height = 1.0 / ncols, 1.0 / nrows
+for (i, j), val in np.ndenumerate(output_as_array):
     tb.add_cell(i, j, width, height)
     tb.add_cell(i, j, width, height, loc='center')
 for i in range(row):
     for j in range(col):
-        if(output[i][j]!=0):
-            tb[(i,j)].set_facecolor("#56b5fd")
-            tb[(i,j)].set_text_props(text=output[i][j])
+        if(output[i][j] != 0):
+            tb[(i, j)].set_facecolor("#56b5fd")
+            tb[(i, j)].set_text_props(text=output[i][j])
         else:
-            tb[(i,j)].set_facecolor("grey")       
+            tb[(i, j)].set_facecolor("grey")
 ax.add_table(tb)
 ax.set_aspect('equal')
 plt.axis("off")
