@@ -17,8 +17,12 @@ are a total of 3 lakes in the matrix. They are marked with numbers 1-3 in the fi
 
 Starting with typing the following command into terminal
 ```
+pip install -r requirements.txt
+```
+```
 python count_of_lake.py
 ```
+
 Then it will ask you to enter the number of rows and number of columns.
 
 ![examples](images/enterRowColumn.PNG)
